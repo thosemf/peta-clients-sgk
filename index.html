@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<base target="_top">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Peserta Event: Next Generation IT Solutions for Your Organizations 2024</title>
+
+	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+
+    <!-- Leaflet CSS and JS v1.9.3 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" integrity="sha512-Zcn6bjR/8RZbLEpLIeOwNtzREBAJnUKESxces60Mpoj+2okopSAcSUIUOseddDm0cxnGQzxIR7vJgsLZbdLE3w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js" integrity="sha512-BwHfrr4c9kmRkLw6iXFdzcdWV/PGkVgiIyIWLLlTSXzWQzxuSg4DiQUCpauz/EWjgk5TYQqX/kvn9pG1NpYfqg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    
+	
+    <!-- FontAwesome for icons -->
+    <script src="https://kit.fontawesome.com/3987886e09.js" crossorigin="anonymous"></script>
+
+	<style type="text/css">
+		body {
+            font-family: Calibri, Helvetica, Arial, sans-serif;
+        }
+        h3 {
+            font-family: Cambria,"Times New Roman",serif;
+        }
+        #paragraf2 {
+            font-family: Georgia, serif;
+        }
+		.leaflet-container {
+			justify-content: center;
+			height: 720px;
+			width: 1920px;
+			max-width: 100%;
+			max-height: 100%;
+        }
+		.map {
+			margin: 0;
+			width: 60%;
+			border: 3px solid #73AD21;
+			padding: 10px;
+		}
+
+        .fa-div-icon {
+            position: relative;
+            width: 43px; /* SVG width */
+            height: 61px; /* SVG height */
+            background-color: transparent;
+            border: none;
+        }
+
+        /* SVG as background */
+        .fa-div-icon svg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1; /* Make sure the SVG stays behind */
+        }
+
+        /* FontAwesome icon */
+        .fa-stethoscope {
+            position: absolute;
+            font-size: 24px;
+            top: 50%; /* Start at the center */
+            left: 50%;
+            transform: translate(-50%, -18px); /* Offset by 23px from the center */
+            z-index: 2; /* Make sure the icon stays on top of the SVG */
+		}
+    </style>
+
+</head>
+<body>
+<p><font type=calibri>Peserta Event: Next Generation IT Solutions for Your Organizations 2024</font></p>
+
+<div id='map' align='center'></div>
+
+<script>
+	// Define custom SVG and FontAwesome icons for the map
+	var svgBackground = `
+        <svg xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" version="1.1" width="38.399799pt" height="57.599701pt" id="svg4" viewBox="0 0 38.399799 57.599701" sodipodi:docname="Untitled-1.cdr">
+        <defs id="defs8"/>
+        <sodipodi:namedview id="namedview6" pagecolor="#ffffff" bordercolor="#000000" borderopacity="0.25" inkscape:showpageshadow="2" inkscape:pageopacity="0.0" inkscape:pagecheckerboard="0" inkscape:deskcolor="#d1d1d1" inkscape:document-units="pt"/>
+        <path d="m 5.884,1.1999 h 26.6318 c 2.5799,0 4.6841,2.2171 4.6841,4.9353 v 23.7591 c 0,1.1297 -0.3119,2.1003 -0.9631,2.9977 L 19.1772,56.3998 2.1595,32.8906 C 1.5106,31.994 1.1999,31.0252 1.1999,29.8977 V 6.1352 c 0,-2.7182 2.1042,-4.9353 4.6841,-4.9353 z" style="fill:#e6e6e6;fill-rule:evenodd;stroke:#000000;stroke-width:1.1999;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none" id="path2"/>
+        </svg>
+	`;
+
+	var hospitalIconGrey = L.divIcon({
+		html: svgBackground + '<i class="fa-solid fa-stethoscope" style="color: grey;"></i>',
+		className: 'fa-div-icon',
+		iconSize: [35.5, 49],
+		iconAnchor: [17.75, 49],
+		popupAnchor: [0, -49]
+	});
+	var hospitalIconRed = L.divIcon({
+		html: svgBackground + '<i class="fa-solid fa-stethoscope" style="color: red;"></i>',
+		className: 'fa-div-icon',
+		iconSize: [35.5, 49],
+		iconAnchor: [17.75, 49],
+		popupAnchor: [0, -49]
+	});
+	var hospitalIconOrange = L.divIcon({
+		html: svgBackground + '<i class="fa-solid fa-stethoscope" style="color: orange;"></i>',
+		className: 'fa-div-icon',
+		iconSize: [35.5, 49],
+		iconAnchor: [17.75, 49],
+		popupAnchor: [0, -49]
+	});
+	var hospitalIconGreen = L.divIcon({
+		html: svgBackground + '<i class="fa-solid fa-stethoscope" style="color: green;"></i>',
+		className: 'fa-div-icon',
+		iconSize: [35.5, 49],
+		iconAnchor: [17.75, 49],
+		popupAnchor: [0, -49]
+	});
+	var hospitalIconLime = L.divIcon({
+		html: svgBackground + '<i class="fa-solid fa-stethoscope" style="color: lime;"></i>',
+		className: 'fa-div-icon',
+		iconSize: [35.5, 49],
+		iconAnchor: [17.75, 49],
+		popupAnchor: [0, -49]
+	});
+	var hospitalIconBlue = L.divIcon({
+		html: svgBackground + '<i class="fa-solid fa-stethoscope" style="color: blue;"></i>',
+		className: 'fa-div-icon',
+		iconSize: [35.5, 49],
+		iconAnchor: [17.75, 49],
+		popupAnchor: [0, -49]
+	});
+	var hospitalIconCyan = L.divIcon({
+		html: svgBackground + '<i class="fa-solid fa-stethoscope" style="color: cyan;"></i>',
+		className: 'fa-div-icon',
+		iconSize: [35.5, 49],
+		iconAnchor: [17.75, 49],
+		popupAnchor: [0, -49]
+	});
+	var hospitalIconMagenta = L.divIcon({
+		html: svgBackground + '<i class="fa-solid fa-stethoscope" style="color: magenta;"></i>',
+		className: 'fa-div-icon',
+		iconSize: [35.5, 49],
+		iconAnchor: [17.75, 49],
+		popupAnchor: [0, -49]
+	});
+	var hospitalIconPurple = L.divIcon({
+		html: svgBackground + '<i class="fa-solid fa-stethoscope" style="color: purple;"></i>',
+		className: 'fa-div-icon',
+		iconSize: [35.5, 49],
+		iconAnchor: [17.75, 49],
+		popupAnchor: [0, -49]
+	});
+
+	const hospitals = L.layerGroup();
+
+	// Example markers with custom icons
+	const RSBanyumas = [
+		L.marker([-7.4374759,109.264872], {icon: hospitalIconRed}).bindPopup("RS Umum Daerah Prof Dr.Margono Ssoekarjo").addTo(hospitals),
+		L.marker([-7.4082452,109.0786685], {icon: hospitalIconRed}).bindPopup("RS Khusus Bedah Mitra Ariva").addTo(hospitals),
+		L.marker([-7.4591125,109.2692589], {icon: hospitalIconGrey}).bindPopup("RS Umum Wiradadi Husada").addTo(hospitals),
+		L.marker([-7.4429171,109.2677785], {icon: hospitalIconGrey}).bindPopup("RS Khusus Orthopaedi Purwokerto").addTo(hospitals),
+		L.marker([-7.4164645,109.2348825], {icon: hospitalIconGrey}).bindPopup("RS Umum Santa Elisabeth Purwokerto").addTo(hospitals),
+		L.marker([-7.410318,109.2717277], {icon: hospitalIconGrey}).bindPopup("RS JIH Purwokerto").addTo(hospitals),
+		L.marker([-7.426717,109.258164], {icon: hospitalIconGrey}).bindPopup("RS Umum Hidayah Purwokerto").addTo(hospitals),
+		L.marker([-7.4170109,109.2410871], {icon: hospitalIconGrey}).bindPopup("RS Khusus Bedah Jatiwinangun").addTo(hospitals),
+		L.marker([-7.4332947,109.2408715], {icon: hospitalIconGrey}).bindPopup("RS Ibu dan Anak Budhi Asih").addTo(hospitals),
+		L.marker([-7.6114394,109.3504042], {icon: hospitalIconGrey}).bindPopup("RS Umum Amanah").addTo(hospitals),
+		L.marker([-7.4182719,109.2214126], {icon: hospitalIconGrey}).bindPopup("RS Umum Ananda Purwokerto").addTo(hospitals),
+		L.marker([-7.529866,109.2924346], {icon: hospitalIconGrey}).bindPopup("RS umum Daerah Banyumas").addTo(hospitals),
+		L.marker([-7.412809,109.0792511], {icon: hospitalIconGrey}).bindPopup("RS Umum Daerah Ajibarang").addTo(hospitals),
+		L.marker([-7.4105044,109.2511598], {icon: hospitalIconGrey}).bindPopup("RS Khusus Gigi dan Mulut Univ. Jenderal Soedirman").addTo(hospitals),
+		L.marker([-7.5925616,109.2721318], {icon: hospitalIconGrey}).bindPopup("RS Umum Medika Lestari Banyumas").addTo(hospitals),
+		L.marker([-7.4150947,109.2455802], {icon: hospitalIconGrey}).bindPopup("RS Umum Tk. III Wijayakusuma").addTo(hospitals),
+		L.marker([-7.5255273,109.2908285], {icon: hospitalIconGrey}).bindPopup("RS Umum Siaga Medika Banyumas").addTo(hospitals),
+		L.marker([-7.4477542,109.2503767], {icon: hospitalIconGrey}).bindPopup("RS Umum Dadi Keluarga").addTo(hospitals),
+		L.marker([-7.4186405,109.2102927], {icon: hospitalIconGrey}).bindPopup("RS Umum Islam Purwokerto").addTo(hospitals),
+		L.marker([-7.5180652,109.0622717], {icon: hospitalIconGrey}).bindPopup("RS Umum An Ni'mah").addTo(hospitals),
+		L.marker([-7.4290264,109.2509304], {icon: hospitalIconGrey}).bindPopup("RS Umum Bunda").addTo(hospitals),
+		L.marker([-7.4205617,109.2000587], {icon: hospitalIconGrey}).bindPopup("RS Hermina Purwokerto").addTo(hospitals),
+		L.marker([-7.420749,109.2431658], {icon: hospitalIconGrey}).bindPopup("RS Ibu dan Anak Bunda Arif Purwokerto").addTo(hospitals),
+		L.marker([-7.4256033,109.2592381], {icon: hospitalIconGrey}).bindPopup("RS Umum Sinar Kasih").addTo(hospitals)
+	];
+	const RSBrebes = [
+		L.marker([-7.2681263,109.0212185], {icon: hospitalIconGrey}).bindPopup("RS Harapan Sehat Bumiayu").addTo(hospitals),
+		L.marker([-6.9489387,108.9725916], {icon: hospitalIconGrey}).bindPopup("RS Umum Amanah Mahmudah").addTo(hospitals),
+		L.marker([-6.9310153,108.891052], {icon: hospitalIconGrey}).bindPopup("RS Umum Daerah Ir. Soekarno Kab. Brebes").addTo(hospitals),
+		L.marker([-7.2657752,109.0097145], {icon: hospitalIconGrey}).bindPopup("RS Umum Muhammadiyah Siti Aminah").addTo(hospitals),
+		L.marker([-6.8667119,109.0451487], {icon: hospitalIconGrey}).bindPopup("RS Ibu dan Anak Permata Insani").addTo(hospitals),
+		L.marker([-6.9167732,109.0020097], {icon: hospitalIconGrey}).bindPopup("RS Umum Bhakti Asih Brebes").addTo(hospitals),
+		L.marker([-6.9683895,109.0643994], {icon: hospitalIconGrey}).bindPopup("RS Umum Bhakti Asih Jatibarang").addTo(hospitals),
+		L.marker([-7.2626763,109.0080366], {icon: hospitalIconGrey}).bindPopup("RS Umum Allam Medica Bumiayu").addTo(hospitals),
+		L.marker([-6.8739253,108.8737947], {icon: hospitalIconGrey}).bindPopup("RS Umum Islami Mutiara Bunda").addTo(hospitals),
+		L.marker([-7.2603756,109.003098], {icon: hospitalIconGrey}).bindPopup("RS Umum Siti Asiyah").addTo(hospitals),
+		L.marker([-6.871859,109.0438923], {icon: hospitalIconGrey}).bindPopup("RS Umum Dedy Jaya").addTo(hospitals),
+		L.marker([-7.2546063,109.0106796], {icon: hospitalIconGrey}).bindPopup("RS Umum Daerah Bumiayu").addTo(hospitals),
+		L.marker([-6.9754984,108.853688], {icon: hospitalIconGrey}).bindPopup("RS Umum Dera As-Syifa").addTo(hospitals),
+		L.marker([-6.9542123,109.0492472], {icon: hospitalIconGrey}).bindPopup("RS Harapan Sehat Jatibarang").addTo(hospitals),
+		L.marker([-6.8949894,108.9970732], {icon: hospitalIconGrey}).bindPopup("RS Ibu dan Anak Nuzula").addTo(hospitals),
+		L.marker([-6.8747992,109.0464527], {icon: hospitalIconGrey}).bindPopup("RS Umum Daerah Brebes").addTo(hospitals)
+	];
+	const RSCilacap = [
+		L.marker([-7.2960344,108.7654574], {icon: hospitalIconGrey}).bindPopup("RS Umum Duta Mulya").addTo(hospitals),
+		L.marker([-7.636894,109.2466571], {icon: hospitalIconGrey}).bindPopup("RS Umum Aghisna Medika Kroya").addTo(hospitals),
+		L.marker([-7.7172811,109.012723], {icon: hospitalIconGrey}).bindPopup("RS Umum Daerah Cilacap").addTo(hospitals),
+		L.marker([-7.6922862,109.0224392], {icon: hospitalIconGrey}).bindPopup("RS Umum Islam Fatimah").addTo(hospitals),
+		L.marker([-7.7354254,109.0071097], {icon: hospitalIconGrey}).bindPopup("RS Umum Santa Maria Cilacap").addTo(hospitals),
+		L.marker([-7.7169953,109.0121855], {icon: hospitalIconGrey}).bindPopup("RS Ibu dan Anak Annisa").addTo(hospitals),
+		L.marker([-7.3006461,108.7535897], {icon: hospitalIconGrey}).bindPopup("RS Umum Raffa Majenang").addTo(hospitals),
+		L.marker([-7.4851422,108.7973785], {icon: hospitalIconGrey}).bindPopup("RS Umum Aghisna Medika Sidareja").addTo(hospitals),
+		L.marker([-7.702101,109.045137], {icon: hospitalIconGrey}).bindPopup("RS Umum Pertamina Cilacap").addTo(hospitals),
+		L.marker([-7.2960221,108.7574125], {icon: hospitalIconGrey}).bindPopup("RS Umum Daerah Majenang").addTo(hospitals),
+		L.marker([-7.6691211,109.0673712], {icon: hospitalIconGrey}).bindPopup("RS Umum Afdila Cilacap").addTo(hospitals),
+		L.marker([-7.71243,109.0142779], {icon: hospitalIconGrey}).bindPopup("RS Umum Aprillia").addTo(hospitals),
+		L.marker([-7.5689319,109.1805091], {icon: hospitalIconGrey}).bindPopup("RS Priscilla Medical Center").addTo(hospitals)
+	];
+	const RSKebumen = [
+		L.marker([-7.699999898581365, 109.66451030270997], {icon: hospitalIconGrey}).bindPopup("RS Umum Daerah dr. Soedirman Kabupaten Kebumen").addTo(hospitals),
+		L.marker([-7.608618408025285, 109.50246046895984], {icon: hospitalIconGrey}).bindPopup("RS Umum PKU Muhamadiyah Gombong").addTo(hospitals),
+		L.marker([-7.718489659680051, 109.73643185362114], {icon: hospitalIconGrey}).bindPopup("RS Umum PKU Muhammadiyah Kutowinangun").addTo(hospitals),
+		L.marker([-7.609696236761449, 109.48635313643415], {icon: hospitalIconGrey}).bindPopup("RS Umum Purbowangi").addTo(hospitals),
+		L.marker([-7.721512391763426, 109.79493185767011], {icon: hospitalIconGrey}).bindPopup("RS Umum Daerah Prembun").addTo(hospitals),
+		L.marker([-7.663711994532578, 109.65382107301025], {icon: hospitalIconGrey}).bindPopup("RS Khusus Ibu Anak Buah Hati Kebumen").addTo(hospitals),
+		L.marker([-7.684256802423886, 109.50758005362056], {icon: hospitalIconGrey}).bindPopup("RS Umum Purwogondo").addTo(hospitals),
+		L.marker([-7.609369573989141, 109.53204999594952], {icon: hospitalIconGrey}).bindPopup("RS Umum Palang Biru Gombong").addTo(hospitals),
+		L.marker([-7.675540005475036, 109.66759803828037], {icon: hospitalIconGrey}).bindPopup("RS Umum Permata Medika Kebumen").addTo(hospitals),
+		L.marker([-7.679326309636146, 109.66657905362058], {icon: hospitalIconGrey}).bindPopup("RS Umum Wijayakusuma").addTo(hospitals),
+		L.marker([-7.662471265599998, 109.60933831129037], {icon: hospitalIconGrey}).bindPopup("RS Umum PKU Muhammadiyah Sruweng").addTo(hospitals),
+		L.marker([-7.754710954335877, 109.59310008245656], {icon: hospitalIconGrey}).bindPopup("RS Umum PKU Muhammadiyah Petanahan Kebumen").addTo(hospitals)
+	];
+	const RSPemalang = [ 
+		L.marker([-6.910470078765143, 109.38232829594062], {icon: hospitalIconGrey}).bindPopup("RS Umum Daerah Dr. M. Ashari Pemalang").addTo(hospitals),
+		L.marker([-6.884149432066456, 109.39310349630944], {icon: hospitalIconGrey}).bindPopup("RS Umum Prima Medika").addTo(hospitals),
+		L.marker([-7.135128669345416, 109.25064422477851], {icon: hospitalIconGrey}).bindPopup("RS Muhammadiyah Rodliyah Achid").addTo(hospitals),
+		L.marker([-6.893415662450925, 109.43340960759008], {icon: hospitalIconGrey}).bindPopup("RS Umum Siaga Medika Pemalang").addTo(hospitals),
+		L.marker([-6.887384264840403, 109.38040234011562], {icon: hospitalIconGrey}).bindPopup("RS Harapan Sehat Pemalang").addTo(hospitals),
+		L.marker([-6.894208107356203, 109.38783697301025], {icon: hospitalIconGrey}).bindPopup("RS Umum Santa Maria Pemalang").addTo(hospitals),
+		L.marker([-6.904059217152661, 109.41188412293022], {icon: hospitalIconGrey}).bindPopup("RS Umum Islam Al-Ikhlas").addTo(hospitals),
+		L.marker([-6.903011429263194, 109.51407003827042], {icon: hospitalIconGrey}).bindPopup("RS Umum Comal Baru").addTo(hospitals),
+		L.marker([-7.1004891290632095, 109.33347109778832], {icon: hospitalIconGrey}).bindPopup("RS Umum Muhammadiyah Mardhatillah").addTo(hospitals)
+	];
+	const RSPurbalingga = [
+		L.marker([-7.399045937081254, 109.34607986711181], {icon: hospitalIconGrey}).bindPopup("RS Umum Nirmala").addTo(hospitals),
+		L.marker([-7.403219965236048, 109.35864042478185], {icon: hospitalIconGrey}).bindPopup("RS Umum Daerah Panti Nugroho").addTo(hospitals),
+		L.marker([-7.378003352505281, 109.36155922478149], {icon: hospitalIconGrey}).bindPopup("RS Umum Daerah dr. R.Goeteng Taroenadibrata").addTo(hospitals),
+		L.marker([-7.386486557799697, 109.36141050944154], {icon: hospitalIconGrey}).bindPopup("RS Ibu dan Anak Ummu Hani").addTo(hospitals),
+		L.marker([-7.399850463532465, 109.35028959779225], {icon: hospitalIconGrey}).bindPopup("RS Umum Harapan Ibu").addTo(hospitals),
+		L.marker([-7.383780976387231, 109.34528435361658], {icon: hospitalIconGrey}).bindPopup("RS Umum Siaga Medika Purbalingga").addTo(hospitals),
+		L.marker([-7.409515764634938, 109.34382718060678], {icon: hospitalIconGrey}).bindPopup("RS Islam At-Tin Husada Purbalingga").addTo(hospitals),
+		L.marker([-7.402093616588989, 109.37500458245204], {icon: hospitalIconGrey}).bindPopup("RS Ibu dan Anak MPH Purbalingga").addTo(hospitals),
+		L.marker([-7.311304086263354, 109.36652009594567], {icon: hospitalIconGrey}).bindPopup("RS Umum PKU Muhammadiyah Purbalingga").addTo(hospitals)
+	];
+	const RSPurworejo = [
+		L.marker([-7.724913331441548, 110.02577241129119], {icon: hospitalIconGrey}).bindPopup("RS Umum Budi Sehat Purworejo").addTo(hospitals),
+		L.marker([-7.731249734786021, 110.00205426711614], {icon: hospitalIconGrey}).bindPopup("RS Amanah Umat Purworejo").addTo(hospitals),
+		L.marker([-7.71980218149854, 109.97328635362116], {icon: hospitalIconGrey}).bindPopup("RS Umum Ananda Purworejo").addTo(hospitals),
+		L.marker([-7.708883814713447, 110.00948075028894], {icon: hospitalIconGrey}).bindPopup("RS Umum Aisyiyah").addTo(hospitals),
+		L.marker([-7.727265850047184, 109.96916162478614], {icon: hospitalIconGrey}).bindPopup("RS Umum Purwa Husada").addTo(hospitals),
+		L.marker([-7.719604860239894, 109.99652929779636], {icon: hospitalIconGrey}).bindPopup("RS Umum Daerah Dr. Tjitrowardojo Purworejo").addTo(hospitals),
+		L.marker([-7.740256743579102, 109.99581419595125], {icon: hospitalIconGrey}).bindPopup("RS Umum Daerah R.A.A Tjokronegoro").addTo(hospitals),
+		L.marker([-7.71831694427984, 109.91234658061083], {icon: hospitalIconGrey}).bindPopup("RS Umum Palang Biru Kutoarjo").addTo(hospitals),
+		L.marker([-7.712578283815328, 110.00752908061077], {icon: hospitalIconGrey}).bindPopup("RS Ibu dan Anak Permata").addTo(hospitals),
+		L.marker([-7.68180890876282, 110.03548885362069], {icon: hospitalIconGrey}).bindPopup("RS Umum Islam Purworejo").addTo(hospitals),
+		L.marker([-7.717348084312026, 110.00384445177582], {icon: hospitalIconGrey}).bindPopup("RS Umum Kasih Ibu Purworejo").addTo(hospitals),
+		L.marker([-7.717560717465363, 110.0039195536211], {icon: hospitalIconGrey}).bindPopup("RS Umum Panti Waluyo Yakkum Purworejo").addTo(hospitals)
+	];
+	const RSWonosobo = [
+		L.marker([-7.373212105463545, 109.94031251990971], {icon: hospitalIconGrey}).bindPopup("RS Umum PKU Muhammadiyah Wonosobo").addTo(hospitals),
+		L.marker([-7.36318229818139, 109.89855291752538], {icon: hospitalIconGrey}).bindPopup("RS Umum Setjonegoro Wonosobo").addTo(hospitals),
+		L.marker([-7.368871907723882, 109.92739119553912], {icon: hospitalIconGrey}).bindPopup("RS Umum Islam Wonosobo").addTo(hospitals),
+		L.marker([-7.373923679240737, 109.89959744111371], {icon: hospitalIconGrey}).bindPopup("RS Umum AISs Wonosobo").addTo(hospitals),
+		L.marker([-7.3545223275294935, 109.90559195321164], {icon: hospitalIconGrey}).bindPopup("RS Ibu dan Anak Adina").addTo(hospitals)
+	];
+
+	// Base map layers
+	const mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
+	const mbUrl = 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+
+	const streets = L.tileLayer(mbUrl, {id: 'mapbox/streets-v11', tileSize: 512, zoomOffset: -1, attribution: mbAttr});
+
+	const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 19,
+		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	});
+
+	const map = L.map('map', {
+		center: [-7.4300981, 109.1520201],
+		zoom: 8.5,
+		layers: [osm, hospitals] // Initial layers on the map
+	});
+
+	// Base layers and overlays
+	const baseLayers = {
+		'OpenStreetMap': osm
+	};
+
+	const overlays = {
+		'Hospitals': hospitals
+	};
+
+	// Layer control to switch between layers
+	const layerControl = L.control.layers(baseLayers, overlays).addTo(map);
+</script>
+
+</body>
+</html>

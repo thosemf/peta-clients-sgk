@@ -37,33 +37,35 @@
 			border: 3px solid #73AD21;
 			padding: 10px;
 		}
-
         .fa-div-icon {
             position: relative;
-            width: 43px; /* SVG width */
-            height: 61px; /* SVG height */
+            width: 43px;
+            height: 61px;
             background-color: transparent;
             border: none;
         }
-
-        /* SVG as background */
         .fa-div-icon svg {
             position: absolute;
             width: 100%;
             height: 100%;
             top: 0;
             left: 0;
-            z-index: 1; /* Make sure the SVG stays behind */
+            z-index: 1;
         }
 
-        /* FontAwesome icon */
-        .fa-stethoscope {
+        .fa-solid {
             position: absolute;
-            font-size: 24px;
-            top: 50%; /* Start at the center */
+            top: 50%;
             left: 50%;
-            transform: translate(-50%, -18px); /* Offset by 23px from the center */
-            z-index: 2; /* Make sure the icon stays on top of the SVG */
+            z-index: 2;
+		}
+        .fa-stethoscope {
+            font-size: 24px;
+            transform: translate(-50%, -18px);
+		}
+        .fa-graduation-cap {
+            font-size: 20px;
+            transform: translate(-50%, -18px);
 		}
     </style>
 
@@ -90,57 +92,8 @@
 		iconAnchor: [17.75, 49],
 		popupAnchor: [0, -49]
 	});
-	var hospitalIconRed = L.divIcon({
-		html: svgBackground + '<i class="fa-solid fa-stethoscope" style="color: red;"></i>',
-		className: 'fa-div-icon',
-		iconSize: [35.5, 49],
-		iconAnchor: [17.75, 49],
-		popupAnchor: [0, -49]
-	});
-	var hospitalIconOrange = L.divIcon({
-		html: svgBackground + '<i class="fa-solid fa-stethoscope" style="color: orange;"></i>',
-		className: 'fa-div-icon',
-		iconSize: [35.5, 49],
-		iconAnchor: [17.75, 49],
-		popupAnchor: [0, -49]
-	});
-	var hospitalIconGreen = L.divIcon({
-		html: svgBackground + '<i class="fa-solid fa-stethoscope" style="color: green;"></i>',
-		className: 'fa-div-icon',
-		iconSize: [35.5, 49],
-		iconAnchor: [17.75, 49],
-		popupAnchor: [0, -49]
-	});
-	var hospitalIconLime = L.divIcon({
-		html: svgBackground + '<i class="fa-solid fa-stethoscope" style="color: lime;"></i>',
-		className: 'fa-div-icon',
-		iconSize: [35.5, 49],
-		iconAnchor: [17.75, 49],
-		popupAnchor: [0, -49]
-	});
-	var hospitalIconBlue = L.divIcon({
-		html: svgBackground + '<i class="fa-solid fa-stethoscope" style="color: blue;"></i>',
-		className: 'fa-div-icon',
-		iconSize: [35.5, 49],
-		iconAnchor: [17.75, 49],
-		popupAnchor: [0, -49]
-	});
-	var hospitalIconCyan = L.divIcon({
-		html: svgBackground + '<i class="fa-solid fa-stethoscope" style="color: cyan;"></i>',
-		className: 'fa-div-icon',
-		iconSize: [35.5, 49],
-		iconAnchor: [17.75, 49],
-		popupAnchor: [0, -49]
-	});
-	var hospitalIconMagenta = L.divIcon({
-		html: svgBackground + '<i class="fa-solid fa-stethoscope" style="color: magenta;"></i>',
-		className: 'fa-div-icon',
-		iconSize: [35.5, 49],
-		iconAnchor: [17.75, 49],
-		popupAnchor: [0, -49]
-	});
-	var hospitalIconPurple = L.divIcon({
-		html: svgBackground + '<i class="fa-solid fa-stethoscope" style="color: purple;"></i>',
+	var collegeIconGrey = L.divIcon({
+		html: svgBackground + '<i class="fa-solid fa-graduation-cap" style="color: grey;"</i>',
 		className: 'fa-div-icon',
 		iconSize: [35.5, 49],
 		iconAnchor: [17.75, 49],
@@ -148,6 +101,7 @@
 	});
 
 	const hospitals = L.layerGroup();
+	const colleges = L.layerGroup();
 
 	// Example markers with custom icons
 	const RSBanyumas = [
@@ -267,6 +221,77 @@
 		L.marker([-7.3545223275294935, 109.90559195321164], {icon: hospitalIconGrey}).bindPopup("RS Ibu dan Anak Adina").addTo(hospitals)
 	];
 
+	const univBrebes = [
+		L.marker([-6.865040595295475, 109.01782956710515], {icon: collegeIconGrey}).bindPopup("Universitas Muhadi Setiabudi").addTo(colleges),
+		L.marker([-7.281799188934203, 109.02500305361542], {icon: collegeIconGrey}).bindPopup("Universitas Peradaban").addTo(colleges),
+		L.marker([-6.887759113607528, 109.04460535361042], {icon: collegeIconGrey}).bindPopup("Sekolah Tinggi Ilmu Ekonomi Widya Manggalia").addTo(colleges),
+		L.marker([-7.289161102879502, 109.0299946959454], {icon: collegeIconGrey}).bindPopup("STMIK Muhammadiyah Paguyangan Brebes").addTo(colleges),
+		L.marker([-6.949625092881185, 109.04673732477629], {icon: collegeIconGrey}).bindPopup("Sekolah Tinggi Ilmu Kesehatan Brebes").addTo(colleges),
+		L.marker([-7.219273135452212, 109.03848762698973], {icon: collegeIconGrey}).bindPopup("Akademi Keperawatan Al Hikmah 2 Brebes").addTo(colleges),
+		L.marker([-7.2163746719344495, 109.03263688244958], {icon: collegeIconGrey}).bindPopup("Akademi Kebidanan KH Putra").addTo(colleges),
+		L.marker([-6.927788786972859, 108.8930103656291], {icon: collegeIconGrey}).bindPopup("Politeknik Mitra Karya Mandiri").addTo(colleges),
+		// L.marker([-0.0000000000000, 0.00000000000000], {icon: collegeIconGrey}).bindPopup("STKIP Islam Bumiayu").addTo(colleges),
+		// L.marker([-0.0000000000000, 0.00000000000000], {icon: collegeIconGrey}).bindPopup("STIE Islam Bumiayu").addTo(colleges),
+		L.marker([-6.944110790196718, 109.04510840369058], {icon: collegeIconGrey}).bindPopup("Akademi Kebidanan YPBHK Brebes").addTo(colleges)
+	];
+	const univCilacap = [
+		L.marker([-7.625043143243012, 109.11339966711476], {icon: collegeIconGrey}).bindPopup("Universitas Nahdlatul Ulama Al Ghazali Cilacap").addTo(colleges),
+		L.marker([-7.712485183778017, 109.01887775362103], {icon: collegeIconGrey}).bindPopup("Universitas Al-Irsyad Cilacap").addTo(colleges),
+		L.marker([-7.676178571184883, 109.06034426896075], {icon: collegeIconGrey}).bindPopup("Sekolah Tinggi Ilmu Ekonomi Muhammadiyah Cilacap").addTo(colleges),
+		L.marker([-7.3967542783759495, 108.89102029594686], {icon: collegeIconGrey}).bindPopup("STKIP Darussalam Cilacap").addTo(colleges),
+		L.marker([-7.309634586104506, 108.73941621164958], {icon: collegeIconGrey}).bindPopup("STKIP Majenang").addTo(colleges),
+		L.marker([-7.6511346925256944, 109.04574296711502], {icon: collegeIconGrey}).bindPopup("STT Minyak dan Gas Cilacap").addTo(colleges),
+		L.marker([-7.335912313528872, 108.8273524883504], {icon: collegeIconGrey}).bindPopup("Sekolah Tinggi Manajemen Informatika dan Komputer Komputama Majenang").addTo(colleges),
+		L.marker([-7.6195130679501, 109.1396682656291], {icon: collegeIconGrey}).bindPopup("Sekolah Tinggi Ilmu Kesehatan Serulingmas").addTo(colleges),
+		L.marker([-7.726405803038124, 109.01555771164958], {icon: collegeIconGrey}).bindPopup("Sekolah Tinggi Ilmu Kesehatan Graha Mandiri Cilacap").addTo(colleges),
+		L.marker([-7.702593874355858, 109.02026491903075], {icon: collegeIconGrey}).bindPopup("Akademi Maritim Nusantara Cilacap").addTo(colleges),
+		// L.marker([-0.00000000000000, 0.000000000000000], {icon: collegeIconGrey}).bindPopup("STIKES Al Irsyad Al Islamiyyah Cilacap").addTo(colleges),
+		// L.marker([-0.00000000000000, 0.000000000000000], {icon: collegeIconGrey}).bindPopup("Akademi Kebidanan Paguwarmas Maos").addTo(colleges),
+		L.marker([-7.619683213595622, 109.14014033437091], {icon: collegeIconGrey}).bindPopup("Akademi Keperawatan Serulingmas").addTo(colleges),
+		L.marker([-7.713393763403691, 109.02291276489113], {icon: collegeIconGrey}).bindPopup("Akademi Kebidanan Graha Mandiri Cilacap").addTo(colleges),
+		L.marker([-7.631065296474612, 109.2459705450352], {icon: collegeIconGrey}).bindPopup("Akademi Kebidanan Dulang Mas").addTo(colleges),
+		L.marker([-7.7168424101605755, 109.0197292349447], {icon: collegeIconGrey}).bindPopup("Politeknik Cilacap").addTo(colleges),
+		// L.marker([-0.00000000000000, 0.000000000000000], {icon: collegeIconGrey}).bindPopup("STIKES Paguwarmas Maos Cilacap").addTo(colleges)
+	];
+	const univKebumen = [
+		L.marker([-7.693507855666602, 109.69545834971106], {icon: collegeIconGrey}).bindPopup("Universitas Ma'arif Nahdlatul Ulama Kebumen").addTo(colleges),
+		L.marker([-7.67578490560342, 109.64671585362055], {icon: collegeIconGrey}).bindPopup("Universitas Putra Bangsa").addTo(colleges),
+		L.marker([-7.609389661800186, 109.5016785959496], {icon: collegeIconGrey}).bindPopup("Universitas Muhammadiyah Gombong").addTo(colleges),
+		L.marker([-7.683001604084432, 109.6666769883504], {icon: collegeIconGrey}).bindPopup("Sekolah Tinggi Manajemen Informatika dan Komputer PGRI Arungbinang Kebumen").addTo(colleges),
+		L.marker([-7.665502905935017, 109.65790718061015], {icon: collegeIconGrey}).bindPopup("Politeknik Piksi Ganesha Indonesia").addTo(colleges),
+		L.marker([-7.682781509273148, 109.69553754992998], {icon: collegeIconGrey}).bindPopup("Akademi Komunitas Al-Kahfi").addTo(colleges),
+		L.marker([-7.67578490560342, 109.64673731129061], {icon: collegeIconGrey}).bindPopup("Sekolah Tinggi Ilmu Ekonomi Putra Bangsa").addTo(colleges),
+		L.marker([-7.6758580440881135, 109.66699058061026], {icon: collegeIconGrey}).bindPopup("Sekolah Tinggi Teknologi Muhammadiyah Kebumen").addTo(colleges),
+		L.marker([-7.609262057141711, 109.50174297301027], {icon: collegeIconGrey}).bindPopup("Sekolah Tinggi Ilmu Kesehatan Muhammadiyah Gombong").addTo(colleges),
+		L.marker([-7.683756504775245, 109.66662334012564], {icon: collegeIconGrey}).bindPopup("AMIK PGRI Kebumen").addTo(colleges),
+	];
+	const univPemalang = [
+		L.marker([-6.889796057190506, 109.3862289116496], {icon: collegeIconGrey}).bindPopup("Institut Teknologi dan Bisnis Adias").addTo(colleges),
+		L.marker([-6.890094295175061, 109.38605725028894], {icon: collegeIconGrey}).bindPopup("Sekolah Tinggi Ilmu Ekonomi Assholeh").addTo(colleges),
+		// L.marker([-0.0000000000000, 0.00000000000000], {icon: collegeIconGrey}).bindPopup("Akademi Pertanian Muhammadiyah Pemalang").addTo(colleges),
+		L.marker([-6.901008249291145, 109.38245364232992], {icon: collegeIconGrey}).bindPopup("Akademi Kebidanan Bhakti Pertiwi Pemalang").addTo(colleges)
+	];
+	const univPurbalingga = [
+		L.marker([-7.401360240374472, 109.37432859594692], {icon: collegeIconGrey}).bindPopup("Universitas Perwira Purbalingga").addTo(colleges),
+		L.marker([-7.396161003412796, 109.37398895361696], {icon: collegeIconGrey}).bindPopup("Institut Teknologi dan Bisnis Muhammadiyah Purbalingga").addTo(colleges),
+		L.marker([-7.399351163280036, 109.37594184012207], {icon: collegeIconGrey}).bindPopup("Politeknik Madyathika").addTo(colleges),
+		// L.marker([-0.0000000000000, 0.00000000000000], {icon: collegeIconGrey}).bindPopup("Sekolah Tinggi Teknologi YPT Purbalingga").addTo(colleges)
+	];
+	const univPurworejo = [
+		L.marker([-7.714011416130338, 110.01402976711597], {icon: collegeIconGrey}).bindPopup("Universitas Muhammadiyah Purworejo").addTo(colleges),
+		L.marker([-7.740168625983253, 109.99733573828108], {icon: collegeIconGrey}).bindPopup("Institut Teknologi Bisnis dan Kesehatan Bhakti Putra Bangsa Indonesia").addTo(colleges),
+		L.marker([-7.723456936171289, 109.9477769094459], {icon: collegeIconGrey}).bindPopup("Sekolah Tinggi Ilmu Ekonomi Rajawali").addTo(colleges),
+		L.marker([-7.724642020130633, 109.95565816527076], {icon: collegeIconGrey}).bindPopup("Sekolah Tinggi Ilmu Kesehatan Pemkab Purworejo").addTo(colleges),
+		L.marker([-7.715841088685221, 109.91573418835041], {icon: collegeIconGrey}).bindPopup("Politeknik Sawunggalih Aji").addTo(colleges),
+		L.marker([-7.724269926023991, 109.95550796562911], {icon: collegeIconGrey}).bindPopup("Akademi Keperawatan Pemerintah Tabulate Purworejo").addTo(colleges),
+		// L.marker([-7.739277923088155, 109.99771963437091], {icon: collegeIconGrey}).bindPopup("Akademi Kebidanan Bhakti Putra Bangsa Purworejo").addTo(colleges)
+	];
+	const univWonosobo = [
+		L.marker([-7.325010486138526, 109.91392301164959], {icon: collegeIconGrey}).bindPopup("Universitas Sains Alqur an").addTo(colleges),
+		// L.marker([-0.0000000000000, 0.00000000000000], {icon: collegeIconGrey}).bindPopup("Sekolah Tinggi Ilmu Kesehatan Muhammadiyah Wonosobo").addTo(colleges),
+		L.marker([-7.365778009521267, 109.92292376035778], {icon: collegeIconGrey}).bindPopup("Akademi Pertanian PGRI Wonosobo").addTo(colleges)
+	];
+
 	// Base map layers
 	const mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
 	const mbUrl = 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
@@ -281,7 +306,7 @@
 	const map = L.map('map', {
 		center: [-7.4300981, 109.1520201],
 		zoom: 8.5,
-		layers: [osm, hospitals] // Initial layers on the map
+		layers: [osm, hospitals, colleges] // Initial layers on the map
 	});
 
 	// Base layers and overlays
@@ -290,7 +315,8 @@
 	};
 
 	const overlays = {
-		'Hospitals': hospitals
+		'Hospitals': hospitals,
+		'Colleges': colleges
 	};
 
 	// Layer control to switch between layers

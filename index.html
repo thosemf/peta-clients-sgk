@@ -77,37 +77,35 @@
 
 <script>
 	// Define custom SVG and FontAwesome icons for the map
-	const svgBackground = `
-        <svg xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" version="1.1" width="38.399799pt" height="57.599701pt" id="svg4" viewBox="0 0 38.399799 57.599701" sodipodi:docname="Untitled-1.cdr">
-        <defs id="defs8"/>
-        <sodipodi:namedview id="namedview6" pagecolor="#ffffff" bordercolor="#000000" borderopacity="0.25" inkscape:showpageshadow="2" inkscape:pageopacity="0.0" inkscape:pagecheckerboard="0" inkscape:deskcolor="#d1d1d1" inkscape:document-units="pt"/>
-        <path d="m 5.884,1.1999 h 26.6318 c 2.5799,0 4.6841,2.2171 4.6841,4.9353 v 23.7591 c 0,1.1297 -0.3119,2.1003 -0.9631,2.9977 L 19.1772,56.3998 2.1595,32.8906 C 1.5106,31.994 1.1999,31.0252 1.1999,29.8977 V 6.1352 c 0,-2.7182 2.1042,-4.9353 4.6841,-4.9353 z" style="fill:#e6e6e6;fill-rule:evenodd;stroke:#000000;stroke-width:1.1999;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none" id="path2"/>
-        </svg>
-	`;
+	const imageBackground = `<img src="marker.png" style="height: 49px; width: auto;" />`;
+	// https://raw.githubusercontent.com/thosemf/peta-clients-sgk/refs/heads/main/marker.png
 
 	const hospitalIconGrey = L.divIcon({
-		html: svgBackground + '<i class="fa-solid fa-stethoscope" style="color: grey;"></i>',
+		html: imageBackground + '<i class="fa-solid fa-stethoscope" style="color: grey;"></i>',
 		className: 'fa-div-icon',
 		iconSize: [35.5, 49],
 		iconAnchor: [17.75, 49],
 		popupAnchor: [0, -49]
 	});
+
 	const hospitalIconGreen = L.divIcon({
-		html: svgBackground + '<i class="fa-solid fa-stethoscope" style="color: #00c800;"></i>',
+		html: imageBackground + '<i class="fa-solid fa-stethoscope" style="color: #00c800;"></i>',
 		className: 'fa-div-icon',
 		iconSize: [35.5, 49],
 		iconAnchor: [17.75, 49],
 		popupAnchor: [0, -49]
 	});
+
 	const collegeIconGrey = L.divIcon({
-		html: svgBackground + '<i class="fa-solid fa-graduation-cap" style="color: grey;"</i>',
+		html: imageBackground + '<i class="fa-solid fa-graduation-cap" style="color: grey;"></i>',
 		className: 'fa-div-icon',
 		iconSize: [35.5, 49],
 		iconAnchor: [17.75, 49],
 		popupAnchor: [0, -49]
 	});
+
 	const collegeIconGreen = L.divIcon({
-		html: svgBackground + '<i class="fa-solid fa-graduation-cap" style="color: #00c800;"</i>',
+		html: imageBackground + '<i class="fa-solid fa-graduation-cap" style="color: #00c800;"></i>',
 		className: 'fa-div-icon',
 		iconSize: [35.5, 49],
 		iconAnchor: [17.75, 49],
